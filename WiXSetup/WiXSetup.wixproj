@@ -9,8 +9,18 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>privacyIDEACredentialProviderSetup</OutputName>
     <OutputType>Package</OutputType>
-    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <!-- Zoekvolgorde voor de WiX v3-targets:
+         1. WixTargetsPath uit de omgeving (bv. een losse wix314-binaries-map);
+         2. de MSBuild-map, maar alleen als het bestand daar echt staat - onder Visual Studio
+            2017+ is dat de VS-eigen MSBuild-map, waar het WiX-installatieprogramma niets neerzet;
+         3. de geinstalleerde WiX Toolset via de systeemvariabele WIX (gezet door wix314.exe);
+         4. de oorspronkelijke standaardlocatie. -->
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(WIX)' != '' AND Exists('$(WIX)bin\wix.targets') ">$(WIX)bin\wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixInstallPath Condition=" '$(WixInstallPath)' == '' AND '$(WIX)' != '' ">$(WIX)bin</WixInstallPath>
+    <WixToolPath Condition=" '$(WixToolPath)' == '' AND '$(WIX)' != '' ">$(WIX)bin\</WixToolPath>
+    <WixExtDir Condition=" '$(WixExtDir)' == '' AND '$(WIX)' != '' ">$(WIX)bin</WixExtDir>
     <Name>CredentialProviderSetup</Name>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
