@@ -1,0 +1,1 @@
+"C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\msbuild.exe" PrivacyIDEA-CredentialProvider.sln /p:Configuration=Release /p:Platform=x64 /p:PostBuildEventUseInBuild=false

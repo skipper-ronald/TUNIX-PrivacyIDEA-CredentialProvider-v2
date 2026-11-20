@@ -42,4 +42,4 @@ sign-msi:
 	SIGN_NAME="$(SIGN_NAME)" "$(SIGN_SCRIPT)" $(MSI)
 
 install:
-	scp -p $(FILTER_DLL) $(CP_DLL) $(INSTALL_HOST):
+	scp -p $(MSI) $(FILTER_DLL) $(CP_DLL) $(INSTALL_HOST):
